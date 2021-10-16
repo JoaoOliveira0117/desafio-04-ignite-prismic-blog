@@ -1,12 +1,13 @@
+import Link from 'next/link';
 import { GetStaticProps } from 'next';
-
 import { getPrismicClient } from '../services/prismic';
+import { FiCalendar, FiUser } from "react-icons/fi";
+import { format } from 'date-fns'
+import ptBR from 'date-fns/locale/pt-BR';
 import Prismic from '@prismicio/client';
 
 import commonStyles from '../styles/common.module.scss';
 import styles from './home.module.scss';
-
-import Header from '../components/Header/index';
 
 interface Post {
   uid?: string;
@@ -30,15 +31,28 @@ interface HomeProps {
 export default function Home({ results }: PostPagination) {
   return (
     <>
-      <main className={commonStyles.contentContainer}>
-        <Header/>
+      <main className={styles.postsContainer}>
         {results.map(post => 
-          <>
-            <h1>{post.data.title}</h1>
-            <h2>{post.data.subtitle}</h2>
-            <p>{post.data.author}</p>
-            <p>{post.first_publication_date}</p>
-          </>
+          <Link href={`/post/${post.uid}`}>
+            <a key={post.uid}>
+              <div className={styles.post}>
+                <h1 className={styles.postTitle}>{post.data.title}</h1>
+                <p className={styles.postSubtitle}>{post.data.subtitle}</p>
+                <div className={styles.DateAuthorWrapper}>
+                  <div className={styles.DateWrapper}>
+                    <FiCalendar/>
+                    <p>{format(new Date(post.first_publication_date), 'dd MMM yyyy', {
+                      locale: ptBR,
+                    })}</p>
+                  </div>
+                  <div className={styles.AuthorWrapper}>
+                    <FiUser/>
+                    <p>{post.data.author}</p>
+                  </div>
+                </div>
+              </div>
+            </a>
+          </Link>
         )}
       </main>
     </>

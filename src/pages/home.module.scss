@@ -1,5 +1,39 @@
-.contentContainer {
-    max-width: 1120px;
-    margin: 0 auto;
+.postsContainer {
+    max-width: 960px;
+    margin: 4rem auto;
     padding: 0 2rem;
+}
+
+.post {
+    margin-bottom: 3.25rem;
+}
+
+.postTitle{
+    font-size: 1.75rem;
+}
+
+.postSubtitle {
+    margin: 0.75rem 0 1.5rem 0;
+    font-size: 1.125rem;
+    color: var(--gray-200);
+}
+
+.DateAuthorWrapper {
+    display: flex;
+}
+
+.DateWrapper, .AuthorWrapper {
+    display: flex;
+    align-items: center;
+    margin-right: 1.25rem;
+
+    p {
+        margin-left: 0.5rem;
+        color: var(--gray-200);
+        font-size: .875rem;
+    }
+
+    svg {
+        color: var(--gray-200);
+    }
 }
