@@ -1,1 +1,17 @@
-// TODO
+.headerText{
+    font-weight: 600;
+    font-size: 1.45rem;
+    display: inline-block;
+}
+
+.dot{
+    color: var(--yellow-500)
+}
+
+.headerContainer{
+    margin: 5rem 0 1rem 0;
+}
+
+.headerVector{
+    margin-right: 1.25rem
+}
