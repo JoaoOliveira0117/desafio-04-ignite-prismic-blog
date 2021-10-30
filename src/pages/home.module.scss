@@ -1,39 +1,60 @@
+.Header {
+  margin: 5rem 0 1rem 0;
+}
+
 .postsContainer {
-    max-width: 960px;
-    margin: 4rem auto;
-    padding: 0 2rem;
+  max-width: 960px;
+  margin: 4rem auto;
+  padding: 0 2rem;
 }
 
 .post {
-    margin-bottom: 3.25rem;
+  margin-bottom: 3.25rem;
 }
 
-.postTitle{
-    font-size: 1.75rem;
+.postTitle {
+  font-size: 1.75rem;
 }
 
 .postSubtitle {
-    margin: 0.75rem 0 1.5rem 0;
-    font-size: 1.125rem;
-    color: var(--gray-200);
+  margin: 0.75rem 0 1.5rem 0;
+  font-size: 1.125rem;
+  color: var(--gray-200);
 }
 
 .DateAuthorWrapper {
-    display: flex;
+  display: flex;
 }
 
-.DateWrapper, .AuthorWrapper {
-    display: flex;
-    align-items: center;
-    margin-right: 1.25rem;
+.DateWrapper,
+.AuthorWrapper {
+  display: flex;
+  align-items: center;
+  margin-right: 1.25rem;
 
-    p {
-        margin-left: 0.5rem;
-        color: var(--gray-200);
-        font-size: .875rem;
-    }
+  p {
+    margin-left: 0.5rem;
+    color: var(--gray-200);
+    font-size: 0.875rem;
+  }
 
-    svg {
-        color: var(--gray-200);
-    }
+  svg {
+    color: var(--gray-200);
+  }
+}
+
+.button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  overflow: hidden;
+  outline: none;
+  font-weight: 600;
+  font-size: 1.125rem;
+  color: var(--yellow-500);
+  transition: filter 0.2s ease;
+
+  &:hover {
+    filter: brightness(1.5);
+  }
 }

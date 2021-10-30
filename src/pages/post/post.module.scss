@@ -1,1 +1,64 @@
-// TODO
+.Header {
+  margin: 2rem 0;
+}
+
+.container {
+  max-width: 960px;
+  margin: 4rem auto;
+  padding: 0 2rem;
+}
+
+.ImageContainer {
+  width: 100vw;
+  position: relative;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+
+  img {
+    width: 99%;
+    max-height: 600px;
+    object-fit: cover;
+  }
+}
+
+.title {
+  font-size: 3rem;
+}
+
+.DateAuthorWrapper {
+  display: flex;
+  margin: 1.5rem 0 4rem 0;
+}
+
+.DateWrapper,
+.AuthorWrapper,
+.ReadingTimeWrapper {
+  display: flex;
+  align-items: center;
+  margin-right: 1.25rem;
+
+  p {
+    margin-left: 0.5rem;
+    color: var(--gray-200);
+    font-size: 0.875rem;
+  }
+
+  svg {
+    color: var(--gray-200);
+  }
+}
+
+.PostTitle {
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+.PostContent {
+  margin: 2rem 0 2rem 0;
+
+  p {
+    color: var(--gray-200);
+  }
+}
