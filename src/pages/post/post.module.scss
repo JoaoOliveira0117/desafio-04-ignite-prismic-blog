@@ -9,15 +9,10 @@
 }
 
 .ImageContainer {
-  width: 100vw;
-  position: relative;
-  left: 50%;
-  right: 50%;
-  margin-left: -50vw;
-  margin-right: -50vw;
+  width: 100%;
 
   img {
-    width: 99%;
+    width: 100%;
     max-height: 600px;
     object-fit: cover;
   }

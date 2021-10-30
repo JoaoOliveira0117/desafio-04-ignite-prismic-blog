@@ -54,8 +54,6 @@ export default function Post({ post }: PostProps) {
     setReadingTime(Math.ceil(words?.length / 200));
   }, [post]);
 
-  console.log(isFallback);
-
   if (isFallback) {
     return <p>Carregando...</p>;
   }
