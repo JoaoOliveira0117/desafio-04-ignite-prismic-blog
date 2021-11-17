@@ -3,7 +3,7 @@ import Prismic from '@prismicio/client';
 import { GetStaticPaths, GetStaticProps } from 'next';
 import { getPrismicClient } from '../../services/prismic';
 import { FiCalendar, FiUser, FiClock } from 'react-icons/fi';
-import { format } from 'date-fns';
+import { format, isAfter } from 'date-fns';
 import Header from '../../components/Header';
 import ptBR from 'date-fns/locale/pt-BR';
 import { useRouter } from 'next/router';
@@ -17,6 +17,7 @@ interface Post {
   id: string;
   uid?: string;
   first_publication_date: string | null;
+  last_publication_date: string | null;
   data: {
     title: string;
     banner: {
@@ -92,22 +93,43 @@ export default function Post({ post, nextPost, prevPost }: PostProps) {
         <div>
           <h1 className={styles.title}>{post?.data.title}</h1>
           <div className={styles.DateAuthorWrapper}>
-            <div className={styles.DateWrapper}>
-              <FiCalendar />
-              <p>
-                {format(new Date(post?.first_publication_date), 'dd MMM yyyy', {
-                  locale: ptBR,
-                })}
-              </p>
+            <div className={styles.DateAuthorFlex}>
+              <div className={styles.DateWrapper}>
+                <FiCalendar />
+                <p>
+                  {format(
+                    new Date(post?.first_publication_date),
+                    'dd MMM yyyy',
+                    {
+                      locale: ptBR,
+                    }
+                  )}
+                </p>
+              </div>
+              <div className={styles.AuthorWrapper}>
+                <FiUser />
+                <p>{post?.data.author}</p>
+              </div>
+              <div className={styles.ReadingTimeWrapper}>
+                <FiClock />
+                <p>{readingTime} min</p>
+              </div>
             </div>
-            <div className={styles.AuthorWrapper}>
-              <FiUser />
-              <p>{post?.data.author}</p>
-            </div>
-            <div className={styles.ReadingTimeWrapper}>
-              <FiClock />
-              <p>{readingTime} min</p>
-            </div>
+
+            {isAfter(
+              new Date(post?.last_publication_date),
+              new Date(post?.first_publication_date)
+            ) && (
+              <div className={styles.isEdited}>
+                {format(
+                  new Date(post?.last_publication_date),
+                  "'*editado em 'dd MMM yyyy 'ás' HH:mm",
+                  {
+                    locale: ptBR,
+                  }
+                )}
+              </div>
+            )}
           </div>
         </div>
         <div className={styles.PostContainer}>

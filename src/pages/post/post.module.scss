@@ -23,8 +23,12 @@
 }
 
 .DateAuthorWrapper {
-  display: flex;
   margin: 1.5rem 0 4rem 0;
+}
+
+.DateAuthorFlex {
+  display: flex;
+  margin: 0.5rem 0;
 }
 
 .DateWrapper,
@@ -43,6 +47,12 @@
   svg {
     color: var(--gray-200);
   }
+}
+
+.isEdited {
+  font-size: 0.875rem;
+  font-style: italic;
+  color: var(--gray-200);
 }
 
 .PostTitle {
