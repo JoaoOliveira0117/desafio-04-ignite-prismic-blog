@@ -1,3 +1,5 @@
+import Link from 'next/link';
+import Prismic from '@prismicio/client';
 import { GetStaticPaths, GetStaticProps } from 'next';
 import { getPrismicClient } from '../../services/prismic';
 import { FiCalendar, FiUser, FiClock } from 'react-icons/fi';
@@ -8,9 +10,12 @@ import { useRouter } from 'next/router';
 
 import styles from './post.module.scss';
 import { RichText } from 'prismic-dom';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { UtterancesComments } from '../../components/UtterancesComments/UtterancesComments';
 
 interface Post {
+  id: string;
+  uid?: string;
   first_publication_date: string | null;
   data: {
     title: string;
@@ -29,9 +34,11 @@ interface Post {
 
 interface PostProps {
   post: Post;
+  nextPost?: Post;
+  prevPost?: Post;
 }
 
-export default function Post({ post }: PostProps) {
+export default function Post({ post, nextPost, prevPost }: PostProps) {
   const { isFallback } = useRouter();
   const [readingTime, setReadingTime] = useState(0);
 
@@ -53,6 +60,18 @@ export default function Post({ post }: PostProps) {
 
     setReadingTime(Math.ceil(words?.length / 200));
   }, [post]);
+
+  function reduceString(string: String, size: number) {
+    if (!string) {
+      return '';
+    }
+
+    if (string.length < size) {
+      return string;
+    }
+
+    return string.substring(0, size) + '...';
+  }
 
   if (isFallback) {
     return <p>Carregando...</p>;
@@ -103,6 +122,38 @@ export default function Post({ post }: PostProps) {
             </>
           ))}
         </div>
+
+        <div className={styles.border} />
+
+        <div className={styles.postNav}>
+          <div>
+            {prevPost && (
+              <Link href={`/post/${prevPost?.uid}`} key={prevPost?.uid}>
+                <a className={styles.postNavWrapper}>
+                  <p className={styles.postNavTitle}>
+                    {reduceString(prevPost?.data.title, 20)}
+                  </p>
+                  <h3 className={styles.postNavHint}>Post Anterior</h3>
+                </a>
+              </Link>
+            )}
+          </div>
+          <div className={styles.postNavNext}>
+            {nextPost && (
+              <Link href={`/post/${nextPost?.uid}`} key={nextPost?.uid}>
+                <a className={styles.postNavWrapper}>
+                  <p className={styles.postNavTitle}>
+                    {reduceString(nextPost?.data.title, 20)}
+                  </p>
+                  <h3 className={styles.postNavHint}>Próximo post</h3>
+                </a>
+              </Link>
+            )}
+          </div>
+        </div>
+      </div>
+      <div>
+        <UtterancesComments />
       </div>
     </>
   );
@@ -120,14 +171,31 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   const { slug } = params;
-
   const prismic = getPrismicClient();
 
   const post: Post = await prismic.getByUID('posts', String(slug), {});
 
+  const prevPost: Post = (
+    await prismic.query(Prismic.predicates.at('document.type', 'posts'), {
+      pageSize: 1,
+      after: `${post.id}`,
+      orderings: '[document.first_publication_date desc]',
+    })
+  ).results[0];
+
+  const nextPost: Post = (
+    await prismic.query(Prismic.predicates.at('document.type', 'posts'), {
+      pageSize: 1,
+      after: `${post.id}`,
+      orderings: '[document.first_publication_date]',
+    })
+  ).results[0];
+
   return {
     props: {
       post,
+      nextPost: nextPost || null,
+      prevPost: prevPost || null,
     },
     revalidate: 10,
   };

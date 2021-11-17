@@ -57,3 +57,36 @@
     color: var(--gray-200);
   }
 }
+
+.border {
+  margin-top: 4rem;
+  border-bottom: solid 1px rgb(46, 46, 46);
+}
+
+.postNav {
+  margin-top: 4rem;
+  display: flex;
+  justify-content: space-between;
+}
+
+.postNavWrapper {
+  &:hover {
+    .postNavHint {
+      filter: brightness(1.5);
+    }
+  }
+}
+
+.postNavTitle {
+  font-size: 1.2rem;
+}
+
+.postNavHint {
+  font-size: 1.2rem;
+  color: var(--yellow-500);
+  transition: all ease 0.2s;
+}
+
+.postNavNext {
+  text-align: end;
+}

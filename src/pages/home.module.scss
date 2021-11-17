@@ -10,6 +10,12 @@
 
 .post {
   margin-bottom: 3.25rem;
+
+  &:hover {
+    .postSubtitle {
+      filter: brightness(1.5);
+    }
+  }
 }
 
 .postTitle {
@@ -20,6 +26,7 @@
   margin: 0.75rem 0 1.5rem 0;
   font-size: 1.125rem;
   color: var(--gray-200);
+  transition: all ease 0.2s;
 }
 
 .DateAuthorWrapper {
